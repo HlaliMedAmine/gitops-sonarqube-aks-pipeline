@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   sast_sonar_scan:
     name: SAST and SonarQube Scan
     runs-on: ubuntu-latest
@@ -40,3 +39,18 @@ jobs:
 
       - name: Push Docker Image
         run: docker push medaminehlali/gitops-sonarqube-aks-pipeline:1
+
+  scan_pushed_container_image:
+    name: Scan Pushed Docker Image
+    runs-on: ubuntu-latest
+    needs: build_and_push_docker
+
+    steps:
+      - name: Run Trivy Scan on Pushed Image
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: medaminehlali/gitops-sonarqube-aks-pipeline:1
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
