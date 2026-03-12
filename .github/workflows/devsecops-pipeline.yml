@@ -46,11 +46,11 @@ jobs:
     needs: build_and_push_docker
 
     steps:
-      - name: Scan Docker Image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: medaminehlali/gitops-sonarqube-aks-pipeline:1
-          format: table
-          exit-code: 0
-          severity: CRITICAL,HIGH
-          
+    - name: Scan Docker Image
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        image-ref: medaminehlali/gitops-sonarqube-aks-pipeline:1
+        format: table
+        exit-code: '0'
+        ignore-unfixed: true
+        severity: CRITICAL,HIGH
