@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: supermario
-        image: medaminehlali/gitops-sonarqube-aks-pipeline:14
+        image: medaminehlali/gitops-sonarqube-aks-pipeline:15
         ports:
         - containerPort: 8080
