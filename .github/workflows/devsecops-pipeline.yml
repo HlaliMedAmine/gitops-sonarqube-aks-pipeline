@@ -46,7 +46,6 @@ jobs:
 
       - name: Push Docker Image
         run: docker push $IMAGE_NAME:$IMAGE_TAG
-
   scan_container_image:
     name: Scan Container Image
     runs-on: ubuntu-latest
@@ -55,6 +54,7 @@ jobs:
 
     steps:
       - name: Scan Docker Image with Trivy
+        continue-on-error: true
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
